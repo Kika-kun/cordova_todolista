@@ -7,19 +7,6 @@
 </ion-header>
 
 <ion-content padding>
-    The world is your oyster.
-    <p>
-        t = {{t}}
-    </p>
+    <login [navCtrl]="navCtrl"></login>
 
-
-
-    <div *ngIf="afAuth.authState | async as user; else showLogin">
-        <h1>Hello {{ user.displayName }}!</h1>
-        <button (click)="logout()">Logout</button>
-    </div>
-    <ng-template #showLogin>
-        <p>Please login.</p>
-        <button (click)="login()">Login with Google</button>
-    </ng-template>
 </ion-content>

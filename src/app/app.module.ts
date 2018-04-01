@@ -14,6 +14,7 @@ import { HomePage } from '../pages/home/home';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { LoginComponent } from '../components/login/login';
 
  
  
@@ -30,7 +31,8 @@ export const firebaseConfig = {
 @NgModule({
   declarations: [
     MyApp,
-    HomePage
+    HomePage, 
+    LoginComponent
   ],
   imports: [
     BrowserModule,
