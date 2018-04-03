@@ -22,10 +22,7 @@ export class LoginComponent {
 
   text: string;
 
-  @Input()
-  navCtrl: NavController;
-
-  constructor(public afAuth: AngularFireAuth, private alertCtrl: AlertController, private db: AngularFireDatabase) {
+  constructor(public afAuth: AngularFireAuth, private alertCtrl: AlertController, private db: AngularFireDatabase, public navCtrl: NavController) {
   }
 
   private email: string = "";

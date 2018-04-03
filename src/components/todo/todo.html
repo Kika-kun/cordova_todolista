@@ -1,0 +1,10 @@
+<ion-item-sliding #item>
+    <ion-item (click)="showTodos()">
+        <ion-label>{{todo.text}}</ion-label>
+        <ion-checkbox [(ngModel)]="todo.done"></ion-checkbox>
+    </ion-item>
+    <ion-item-options side="right">
+        <button ion-button color="info" (click)="editTodo()">Editer</button>
+        <button ion-button color="danger" (click)="removeTodo()">Supprimer</button>
+    </ion-item-options>
+</ion-item-sliding>

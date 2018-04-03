@@ -1,5 +1,4 @@
-import { TodolistPageModule } from './../pages/todolist/todolist.module';
-import { TodolistPage } from './../pages/todolist/todolist';
+
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -8,15 +7,22 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 
 import { MyApp } from './app.component';
+
 import { HomePage } from '../pages/home/home';
 import { LoginComponent } from '../components/login/login';
 
+import { TodolistPageModule } from './../pages/todolist/todolist.module';
+import { TodolistPage } from './../pages/todolist/todolist';
+
+import { TodoPage } from '../pages/todo/todo';
+import { TodoPageModule } from '../pages/todo/todo.module';
 
  
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabaseProvider } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+
 
  
  
@@ -42,13 +48,15 @@ export const firebaseConfig = {
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
     AngularFireAuthModule, 
-    TodolistPageModule
+    TodolistPageModule,
+    TodoPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage, 
-    TodolistPage
+    TodolistPage, 
+    TodoPage
   ],
   providers: [
     StatusBar,

@@ -16,13 +16,15 @@
 <ion-content padding>
     <div *ngIf="currentUser && (currentUser.todolists != null); else showEmpty">
 
-        <todolist *ngFor="let t of currentUser.todolists" [todolist]="t"></todolist>
+        <ion-list>
+            <todolist *ngFor="let t of currentUser.todolists" [todolist]="t"></todolist>
+        </ion-list>
     </div>
 
     <ng-template #showEmpty>
         <ion-label>Vous n'avez pas de todolist.</ion-label>
     </ng-template>
 
-    <button ion-button (click)="AddTodolist()">Ajouter un todolist</button>
+    <button ion-button (click)="addTodolist()">Ajouter un todolist</button>
 
 </ion-content>

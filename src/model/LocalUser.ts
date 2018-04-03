@@ -10,4 +10,6 @@ export class LocalUser {
         this.email = email;
         this.todolists = todolists;
     }
+
+
 }

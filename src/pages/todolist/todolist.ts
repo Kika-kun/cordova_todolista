@@ -1,3 +1,4 @@
+import { Utils } from './../../utils/utils';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
 import { AngularFireDatabase } from 'angularfire2/database';
@@ -25,11 +26,9 @@ export class TodolistPage {
   currentUser: LocalUser;
   currentKey: string;
 
+  utils: Utils = new Utils();
+
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, public afAuth: AngularFireAuth, public alertCtrl: AlertController) {
-    
-
-    console.log("On va taper dans la DB");
-
     // Get the current user uid
     let currentUserId: string = firebase.auth().currentUser.uid;
     console.log(currentUserId);
@@ -41,17 +40,14 @@ export class TodolistPage {
           this.currentKey = snapshot.key;
         }
       });
-    })
-
-    console.log(this.currentUser);
-    
+    })    
   }
 
   ionViewDidLoad() {
     
   }
 
-  AddTodolist() {
+  addTodolist() {
     let prompt = this.alertCtrl.create({
       title: 'Ajouter une todolist',
       message: "Entrez un titre pour votre todolist",
@@ -76,10 +72,7 @@ export class TodolistPage {
                 buttons: [{text: 'OK'}]
               }).present()
             } else {
-              if (this.currentUser.todolists == null) {
-                this.currentUser.todolists = new Array<Todolist>();
-              }
-              this.currentUser.todolists.push(this.createTodolist(data.Titre))
+              this.utils.addTodolist(this.currentUser, data.Titre)
               this.db.object('/Users/' + this.currentKey).set(this.currentUser);
             }
           }
@@ -89,14 +82,6 @@ export class TodolistPage {
     prompt.present();
   }
 
-  createTodolist(title: string): Todolist {
-    // Get the id for the new todolist
-    let i = 0
-    for (const t of this.currentUser.todolists) {
-      i = Math.max(t.id, i);
-    }
 
-    return new Todolist(title, i+1);
-  }
 
 }

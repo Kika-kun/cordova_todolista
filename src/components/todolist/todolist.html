@@ -1,1 +1,9 @@
-<ion-label>{{todolist.title}}</ion-label>
+<ion-item-sliding #item>
+    <ion-item (click)="showTodos()">
+        {{todolist.title}}
+    </ion-item>
+    <ion-item-options side="right">
+        <button ion-button color="info" (click)="editTitle()">Editer</button>
+        <button ion-button color="danger" (click)="removeTodolist()">Supprimer</button>
+    </ion-item-options>
+</ion-item-sliding>
