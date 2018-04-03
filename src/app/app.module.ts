@@ -1,3 +1,5 @@
+import { TodolistPageModule } from './../pages/todolist/todolist.module';
+import { TodolistPage } from './../pages/todolist/todolist';
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
 import { IonicApp, IonicErrorHandler, IonicModule } from 'ionic-angular';
@@ -7,14 +9,14 @@ import { StatusBar } from '@ionic-native/status-bar';
 
 import { MyApp } from './app.component';
 import { HomePage } from '../pages/home/home';
+import { LoginComponent } from '../components/login/login';
 
 
  
 // Import the AF2 Module
 import { AngularFireModule } from 'angularfire2';
-import { AngularFireDatabaseModule } from 'angularfire2/database';
+import { AngularFireDatabaseModule, AngularFireDatabaseProvider } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
-import { LoginComponent } from '../components/login/login';
 
  
  
@@ -32,24 +34,26 @@ export const firebaseConfig = {
   declarations: [
     MyApp,
     HomePage, 
-    LoginComponent
+    LoginComponent, 
   ],
   imports: [
     BrowserModule,
     IonicModule.forRoot(MyApp),
     AngularFireModule.initializeApp(firebaseConfig),
     AngularFireDatabaseModule,
-    AngularFireAuthModule
+    AngularFireAuthModule, 
+    TodolistPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
-    HomePage
+    HomePage, 
+    TodolistPage
   ],
   providers: [
     StatusBar,
     SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler}
+    {provide: ErrorHandler, useClass: IonicErrorHandler}, 
   ]
 })
 export class AppModule {}

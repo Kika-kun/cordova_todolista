@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { NavController } from 'ionic-angular';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { async } from '@firebase/util';
 
 
 @Component({
@@ -10,7 +12,7 @@ export class HomePage {
 
   t: String = "ahaha";
   constructor(public navCtrl: NavController) {
-
+   
   }
 
 }

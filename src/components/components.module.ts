@@ -1,8 +1,11 @@
 import { NgModule } from '@angular/core';
 import { LoginComponent } from './login/login';
+import { TodolistComponent } from './todolist/todolist';
 @NgModule({
-	declarations: [LoginComponent],
+	declarations: [LoginComponent,
+    TodolistComponent],
 	imports: [],
-	exports: [LoginComponent]
+	exports: [LoginComponent,
+    TodolistComponent]
 })
 export class ComponentsModule {}

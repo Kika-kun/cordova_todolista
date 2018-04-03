@@ -1,9 +1,11 @@
-import { NavController } from 'ionic-angular';
+import { NavController, Alert } from 'ionic-angular';
 import { Component, Input } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from 'ionic-angular';
 import * as firebase from 'firebase/app';
-import * as firebaseui from 'firebaseui'
+import { TodolistPage } from '../../pages/todolist/todolist';
+import { AngularFireDatabase } from 'angularfire2/database';
+import { LocalUser } from '../../model/LocalUser';
 
 
 /**
@@ -23,9 +25,7 @@ export class LoginComponent {
   @Input()
   navCtrl: NavController;
 
-  constructor(public afAuth: AngularFireAuth, private alertCtrl: AlertController) {
-    console.log('Hello LoginComponent Component');
-    this.text = 'Hello World';
+  constructor(public afAuth: AngularFireAuth, private alertCtrl: AlertController, private db: AngularFireDatabase) {
   }
 
   private email: string = "";
@@ -33,45 +33,62 @@ export class LoginComponent {
   private firstTime: boolean;
 
 
-  login() {
-    if (this.firstTime) {
-      this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass).catch( err => {
+  goToMenu = (_ => {
+    this.navCtrl.setRoot(TodolistPage);
+  })
 
-        this.alertCtrl.create({
+
+  async login() {
+    this.afAuth.auth.signOut().catch(err => {});
+
+    let alertToShow: Alert;
+    let error: string = '';
+    let u: firebase.User;
+
+    if (this.firstTime) {
+      u = await this.afAuth.auth.createUserWithEmailAndPassword(this.email, this.pass).catch(err => error = err)
+
+      if (error != '') {
+        alertToShow = this.alertCtrl.create({
           title: 'Erreur lors de la création du compte',
-          subTitle: this.getErrorText(err),
+          subTitle: this.getErrorText(error),
           buttons: ['OK']
-        }).present()
-      }).then(_ => {
-        this.alertCtrl.create({
+        })
+      } else {
+        alertToShow = this.alertCtrl.create({
           title: "Création du compte réussie !",
           buttons: [{
             text: "OK",
-            handler: _ => {
-              //this.navCtrl.setRoot()
-            }
+            handler: this.goToMenu
           }]
         })
-      })
+
+        // Ajoute le user dans notre base
+        let newUser = new LocalUser(u.uid, this.email, null);
+        console.log(newUser);
+        this.db.list('/Users').push(newUser);
+      }
     } else {
-      this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).catch( err => {
-        this.alertCtrl.create({
+      u = await this.afAuth.auth.signInWithEmailAndPassword(this.email, this.pass).catch(err => error = err);
+      if (error != '') {
+        alertToShow = this.alertCtrl.create({
           title: 'Erreur lors de la connexion à votre compte',
-          subTitle: this.getErrorText(err),
+          subTitle: this.getErrorText(error),
           buttons: ['OK']
-        }).present()
-      }).then(_ => {
-        this.alertCtrl.create({
+        })
+      } else {
+        alertToShow = this.alertCtrl.create({
           title: "Connexion au compte réussie !",
           buttons: [{
             text: "OK",
-            handler: _ => {
-              //this.navCtrl.setRoot()
-            }
+            handler: this.goToMenu
           }]
         })
-      })
+      }
+      
     }
+
+    alertToShow.present();
 
     console.log(this.navCtrl);
   }
@@ -110,6 +127,15 @@ export class LoginComponent {
         errorText = "On m'aurait menti ?";
     }
     return errorText
+  }
+
+  createOurUser(user: firebase.User) {
+    let u: LocalUser;
+    u.email = user.email;
+    u.id = user.uid;
+    u.todolists = null;
+
+
   }
 
   logout() {

@@ -1,23 +1,15 @@
-<div *ngIf="afAuth.authState | async as user; else showLogin">
-    <h1>Hello {{ user.displayName }}!</h1>
-    <button (click)="logout()">Logout</button>
-</div>
-<ng-template #showLogin>
-    <ion-list>
-        <ion-item>
-            <ion-label color="primary">mail : </ion-label>
-            <ion-input type="email" [(ngModel)]="email" placeholder="Adresse e-mail"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label color="primary">Mot de passe : </ion-label>
-            <ion-input type="password" [(ngModel)]="pass" placeholder="mot de passe"></ion-input>
-        </ion-item>
-        <ion-item>
-            <ion-label>Première visite</ion-label>
-            <ion-checkbox [(ngModel)]="firstTime"></ion-checkbox>
-        </ion-item>
-        <button ion-button (click)="login()">Se connecter</button>
-    </ion-list>
-
-
-</ng-template>
+<ion-list>
+    <ion-item>
+        <ion-label color="primary">mail : </ion-label>
+        <ion-input type="email" [(ngModel)]="email" placeholder="Adresse e-mail"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label color="primary">Mot de passe : </ion-label>
+        <ion-input type="password" [(ngModel)]="pass" placeholder="mot de passe"></ion-input>
+    </ion-item>
+    <ion-item>
+        <ion-label>Première visite</ion-label>
+        <ion-checkbox [(ngModel)]="firstTime"></ion-checkbox>
+    </ion-item>
+    <button ion-button (click)="login()">Se connecter</button>
+</ion-list>
