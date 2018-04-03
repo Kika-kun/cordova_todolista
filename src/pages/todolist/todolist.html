@@ -1,0 +1,28 @@
+<!--
+  Generated template for the TodolistPage page.
+
+  See http://ionicframework.com/docs/components/#navigation for more info on
+  Ionic pages and navigation.
+-->
+<ion-header>
+
+    <ion-navbar>
+        <ion-title>Todolist</ion-title>
+    </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+    <div *ngIf="currentUser && (currentUser.todolists != null); else showEmpty">
+
+        <todolist *ngFor="let t of currentUser.todolists" [todolist]="t"></todolist>
+    </div>
+
+    <ng-template #showEmpty>
+        <ion-label>Vous n'avez pas de todolist.</ion-label>
+    </ng-template>
+
+    <button ion-button (click)="AddTodolist()">Ajouter un todolist</button>
+
+</ion-content>
