@@ -23,6 +23,7 @@ import { AlertController } from 'ionic-angular';
 export class TodolistPage {
 
   currentUser: LocalUser;
+  currentKey: string;
 
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, public afAuth: AngularFireAuth, public alertCtrl: AlertController) {
     
@@ -37,6 +38,7 @@ export class TodolistPage {
       snapshots.forEach(snapshot => {
         if (snapshot.payload.val().id == currentUserId) {
           this.currentUser = snapshot.payload.val();
+          this.currentKey = snapshot.key;
         }
       });
     })
@@ -78,6 +80,7 @@ export class TodolistPage {
                 this.currentUser.todolists = new Array<Todolist>();
               }
               this.currentUser.todolists.push(this.createTodolist(data.Titre))
+              this.db.object('/Users/' + this.currentKey).set(this.currentUser);
             }
           }
         }
