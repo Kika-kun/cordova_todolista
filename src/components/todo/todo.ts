@@ -99,4 +99,9 @@ export class TodoComponent {
     }).present()
   }
 
+  updateTodo() {
+    this.utils.setTodoFromUser(this.currentUser, this.todolistId, this.todo.id, this.todo.done);
+    this.db.object('/Users/'+this.currentKey).set(this.currentUser);
+  }
+
 }

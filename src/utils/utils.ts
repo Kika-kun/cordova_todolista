@@ -3,6 +3,7 @@ import { Todolist } from "../model/Todolist";
 import { Todo } from "../model/Todo";
 
 export class Utils {
+
     removeTodolist(u: LocalUser, tlId: number) {
         for (let t of u.todolists) {
             if (t.id == tlId) {
@@ -62,6 +63,17 @@ export class Utils {
         }
     }
 
+    setTodoFromUser(u: LocalUser, tlId: number, tId: number, state: boolean) {
+        if (u && u.todolists) {
+            for (let tl of u.todolists) {
+                if (tl.id == tlId) {
+                    this.setTodoFromTodolist(u.todolists[u.todolists.indexOf(tl)], tId, state);
+                }
+            }
+        }
+    }
+
+
     setTitle(t: Todolist, title: string) {
         t.title = title;
     }
@@ -78,7 +90,7 @@ export class Utils {
         console.log("4")
 
         console.log('5')
-        t.todos.push(new Todo(text, i))
+        t.todos.push(new Todo(text, i+1))
         console.log('6')
     }
 
@@ -100,10 +112,23 @@ export class Utils {
         }
     }
 
-
-
+    setTodoFromTodolist(tl: Todolist, tId: number, state: boolean) {
+        if (tl && tl.todos) {
+            for (let t of tl.todos) {
+                if (t.id == tId) {
+                    this.setTodo(tl.todos[tl.todos.indexOf(t)], state);
+                }
+            }
+        }
+    }
 
     editText(t: Todo, text: string) {
         t.text = text;
     }
+
+    setTodo(t: Todo, state: boolean) {
+        t.done = state;
+    }
+
+    
 }
