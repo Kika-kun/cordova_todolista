@@ -1,3 +1,4 @@
+import { Utils } from './../../utils/utils';
 import { Todolist } from './../../model/Todolist';
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams, AlertController } from 'ionic-angular';
@@ -22,9 +23,12 @@ import { LocalUser } from '../../model/LocalUser';
 })
 export class TodoPage {
 
-  todolist: Todolist;
+  todolistId: number;
+  todolistDisplayId: number;
   currentKey: string;
-  currentUser: LocalUser;
+  currentUser: LocalUser = new LocalUser('','', []);
+
+  utils: Utils = new Utils();
 
   
   constructor(public navCtrl: NavController, public navParams: NavParams, private db: AngularFireDatabase, public afAuth: AngularFireAuth, public alertCtrl: AlertController) {
@@ -38,6 +42,12 @@ export class TodoPage {
         if (snapshot.payload.val().id == currentUserId) {
           this.currentKey = snapshot.key;
           this.currentUser = snapshot.payload.val();
+          for (let t of this.currentUser.todolists) {
+            if (t.id == this.todolistId) {
+              console.log("10")
+              this.todolistDisplayId = this.currentUser.todolists.indexOf(t);
+            }
+          }
         }
       });
     })
@@ -45,7 +55,8 @@ export class TodoPage {
 
   ionViewDidLoad() {
     console.log('ionViewDidLoad TodoPage');
-    this.todolist = this.navParams.get('todolist')
+    this.todolistId = this.navParams.get('todolistId')
+    
   }
 
   addTodo() {
@@ -73,27 +84,10 @@ export class TodoPage {
                 buttons: [{text: 'OK'}]
               }).present()
             } else {
-              if (this.todolist.todos == null) {
-                this.todolist.todos = new Array<Todo>();
-              }
-              this.todolist.todos.push(this.createTodo(data.Contenu))
-
-              // Dans le currentUser, je vais editer la todolist qui represente cette todolist
-              const todolistId = this.todolist.id;
-              let userTlId = -1;
-              for (let i=0; i<this.currentUser.todolists.length; i++) {
-                if (this.currentUser.todolists[i].id == todolistId) {
-                  userTlId = i;
-                  break;
-                }
-              } 
-              if (userTlId == -1) {
-                console.log("Erreur : Ajout d'un todo dans une todolist qui n'existe pas")
-              } else {
-                this.currentUser.todolists[userTlId] = this.todolist;
-                console.log(this.currentUser)
-                this.db.object('/Users/'+this.currentKey).set(this.currentUser);
-              }
+              console.log(this.currentUser)
+              this.utils.addTodoFromUser(this.currentUser, this.todolistId, data.Contenu)
+              console.log(this.currentUser)
+              this.db.object('/Users/'+this.currentKey).set(this.currentUser);
             }
           }
         }
@@ -101,19 +95,4 @@ export class TodoPage {
     });
     prompt.present();
   }
-
-
-
- 
-
-  createTodo(content: string) {
-    // Get the id for the new todolist
-    let i = 0
-    for (const t of this.todolist.todos) {
-      i = Math.max(t.id, i);
-    }
-
-    return new Todo(content, i+1);
-  }
-
 }

@@ -50,11 +50,38 @@ export class Utils {
         u.todolists.push(new Todolist(title, i+1));
     }
 
+    addTodoFromUser(u: LocalUser, tlId: number, text: string) {
+        if (u.todolists != null) {
+            console.log("1")
+            for (let tl of u.todolists) {
+                if (tl.id == tlId) {
+                    console.log('2')
+                    this.addTodo(u.todolists[u.todolists.indexOf(tl)], text);
+                }
+            }
+        }
+    }
 
     setTitle(t: Todolist, title: string) {
         t.title = title;
     }
      
+    addTodo(t: Todolist, text: string) {
+        let i = -1;
+        if (t.todos == null) {
+            t.todos = new Array<Todo>()
+        }
+
+        for (let tt of t.todos) {
+            i = Math.max(i, tt.id)
+        }
+        console.log("4")
+
+        console.log('5')
+        t.todos.push(new Todo(text, i))
+        console.log('6')
+    }
+
     removeTodo(t: Todolist, tId: number) {
         for (let tt of t.todos) {
             if (tt.id == tId) {
@@ -72,6 +99,8 @@ export class Utils {
             }
         }
     }
+
+
 
 
     editText(t: Todo, text: string) {

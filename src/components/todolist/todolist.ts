@@ -46,12 +46,12 @@ export class TodolistComponent {
   }
 
   showTodos() {
-    this.navCtrl.push(TodoPage, {'todolist': this.todolist});
+    this.navCtrl.push(TodoPage, {'todolistId': this.todolist.id});
   }
 
   removeTodolist() {
     this.alertCtrl.create({
-      title: 'Confirmer la suppression ',
+      title: 'Confirmer la suppression',
       buttons: [
         {text: 'Annuler'}, 
         {

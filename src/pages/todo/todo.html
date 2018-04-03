@@ -14,9 +14,9 @@
 
 
 <ion-content padding>
-    <div *ngIf="todolist && todolist != null && todolist.todos && todolist.todos != null; else showEmpty">
+    <div *ngIf="currentUser != null && todolistDisplayId != null && currentUser.todolists != null && currentUser.todolists[todolistDisplayId] != null; else showEmpty">
         <ion-list>
-            <todo *ngFor="let t of todolist.todos" [todo]="t" [todolistId]="todolist.id"></todo>
+            <todo *ngFor="let t of currentUser.todolists[todolistDisplayId].todos" [todo]="t" [todolistId]="todolistId"></todo>
         </ion-list>
     </div>
 
