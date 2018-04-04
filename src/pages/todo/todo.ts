@@ -23,6 +23,9 @@ import { LocalUser } from '../../model/LocalUser';
 })
 export class TodoPage {
 
+  title="Gestion des todos"
+
+
   todolistId: number;
   todolistDisplayId: number;
   currentKey: string;
@@ -50,7 +53,8 @@ export class TodoPage {
           }
         }
       });
-    })
+    },
+    _ => {})
   }
 
   ionViewDidLoad() {

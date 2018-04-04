@@ -1,3 +1,4 @@
+import { NavbarModule } from './../../components/navbar/navbar.module';
 import { NgModule } from '@angular/core';
 import { IonicPageModule } from 'ionic-angular';
 import { SocialTodoPage } from './social-todo';
@@ -8,6 +9,7 @@ import { SocialTodoPage } from './social-todo';
   ],
   imports: [
     IonicPageModule.forChild(SocialTodoPage),
+    NavbarModule
   ],
 })
 export class SocialTodoPageModule {}

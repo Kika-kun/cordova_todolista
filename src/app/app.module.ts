@@ -1,3 +1,4 @@
+import { NavbarComponent } from './../components/navbar/navbar';
 import { SocialTodoPageModule } from './../pages/social-todo/social-todo.module';
 import { SocialPageModule } from './../pages/social/social.module';
 
@@ -26,6 +27,7 @@ import { AngularFireDatabaseModule, AngularFireDatabaseProvider } from 'angularf
 import { AngularFireAuthModule } from 'angularfire2/auth';
 import { SocialPage } from '../pages/social/social';
 import { SocialTodoPage } from '../pages/social-todo/social-todo';
+import { NavbarModule } from '../components/navbar/navbar.module';
 
 
  
@@ -55,8 +57,9 @@ export const firebaseConfig = {
     TodolistPageModule,
     TodoPageModule, 
     SocialPageModule, 
-    SocialTodoPageModule
-  ],
+    SocialTodoPageModule, 
+    NavbarModule
+  ], 
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,

@@ -7,6 +7,7 @@ import * as firebase from 'firebase/app';
 import { AngularFireDatabase } from 'angularfire2/database';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { LocalUser } from '../../model/LocalUser';
+import { Subscription } from 'rxjs/Subscription';
 
 
 /**
@@ -35,14 +36,17 @@ export class TodolistComponent {
     let currentUserId: string = firebase.auth().currentUser.uid;
     console.log(currentUserId);
     
-    db.list('/Users').snapshotChanges().subscribe(snapshots=>{
-      snapshots.forEach(snapshot => {
-        if (snapshot.payload.val().id == currentUserId) {
-          this.currentUser = snapshot.payload.val();
-          this.currentKey = snapshot.key;
-        }
-      });
-    })
+    db.list('/Users').snapshotChanges().subscribe(
+      snapshots=>{
+        snapshots.forEach(snapshot => {
+          if (snapshot.payload.val().id == currentUserId) {
+            this.currentUser = snapshot.payload.val();
+            this.currentKey = snapshot.key;
+          }
+        });
+      }, 
+      _ => {}
+    )
   }
 
   showTodos() {

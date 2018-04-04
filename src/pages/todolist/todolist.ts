@@ -24,6 +24,9 @@ import { SocialPage } from '../social/social';
 })
 export class TodolistPage {
 
+  title="Gestion de vos todolists"
+
+
   currentUser: LocalUser;
   currentKey: string;
 
@@ -34,14 +37,17 @@ export class TodolistPage {
     let currentUserId: string = firebase.auth().currentUser.uid;
     console.log(currentUserId);
     
-    db.list('/Users').snapshotChanges().subscribe(snapshots=>{
-      snapshots.forEach(snapshot => {
-        if (snapshot.payload.val().id == currentUserId) {
-          this.currentUser = snapshot.payload.val();
-          this.currentKey = snapshot.key;
-        }
-      });
-    })
+    db.list('/Users').snapshotChanges().subscribe(
+      snapshots=>{
+        snapshots.forEach(snapshot => {
+          if (snapshot.payload.val().id == currentUserId) {
+            this.currentUser = snapshot.payload.val();
+            this.currentKey = snapshot.key;
+          }
+        });
+      }, 
+      _ => {}
+    )
   }
 
   ionViewDidLoad() {

@@ -22,6 +22,9 @@ import { SocialTodoPage } from '../social-todo/social-todo';
 })
 export class SocialPage {
 
+  title="Gestion des amis"
+
+
   currentUser: LocalUser;
   currentKey: string;
 
@@ -51,7 +54,9 @@ export class SocialPage {
               this.currentKey = snapshot.key;
             }
           });
-        })    
+        },
+        _ => {}
+      )    
   }
 
   ionViewDidLoad() {

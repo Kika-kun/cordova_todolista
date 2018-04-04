@@ -22,6 +22,9 @@ import { Utils } from '../../utils/utils';
 })
 export class SocialTodoPage {
 
+  title="Todoliste de "
+
+
   currentUser: LocalUser;
   currentKey: string;
 
@@ -42,11 +45,13 @@ export class SocialTodoPage {
         this.currentKey = snapshot.key;
       }
     });
-  })
+  }, 
+  _ => {})
   }
 
   ionViewDidLoad() {
     this.email = this.navParams.get('email')
+    this.title += this.email
     
 
     this.db.list('/Users').snapshotChanges().subscribe(snapshots=>{
@@ -56,7 +61,8 @@ export class SocialTodoPage {
           this.tl = snapshot.payload.val().todolists;
         }
       });
-    })    
+    },
+    _ => {})
   }
 
   copyTodo(t: Todolist) {

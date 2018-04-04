@@ -1,5 +1,5 @@
 import { NavController, Alert } from 'ionic-angular';
-import { Component, Input } from '@angular/core';
+import { Component, Input, NgModule } from '@angular/core';
 import { AngularFireAuth } from 'angularfire2/auth';
 import { AlertController } from 'ionic-angular';
 import * as firebase from 'firebase/app';

@@ -10,6 +10,7 @@ import { async } from '@firebase/util';
 })
 export class HomePage {
 
+  title="Connexion à todolist"
   t: String = "ahaha";
   constructor(public navCtrl: NavController) {
    

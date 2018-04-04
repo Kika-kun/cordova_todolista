@@ -1,3 +1,17 @@
-navbar {
+navbar {}
 
+.logoutButton {
+    float: right;
+    padding: 14px;
+    background: url("https://image.flaticon.com/icons/svg/126/126467.svg") no-repeat center center;
+    border-radius: 5px;
+}
+
+.mynavbar ion-title {
+    float: left;
+    margin-top: 9px;
+}
+
+ion-navbar {
+    vertical-align: middle;
 }

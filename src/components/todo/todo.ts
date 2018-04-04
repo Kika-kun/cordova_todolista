@@ -45,7 +45,8 @@ export class TodoComponent {
           this.currentKey = snapshot.key;
         }
       });
-    })
+    }, 
+    _ => {})
   }
 
   editTodo() {

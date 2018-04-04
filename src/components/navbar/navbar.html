@@ -1,4 +1,4 @@
-<!-- Generated template for the NavbarComponent component -->
-<div>
-  {{text}}
-</div>
+<ion-navbar class="mynavbar" layout='row' layout-align="end end">
+    <ion-title>{{title}}</ion-title>
+    <button class="logoutButton" ion-button color="light" end (click)='logOut()'><i class="fas fa-sign-out-alt"></i></button>
+</ion-navbar>

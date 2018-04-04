@@ -1,4 +1,7 @@
-import { Component } from '@angular/core';
+import { HomePage } from './../../pages/home/home';
+import { Component, Input} from '@angular/core';
+import { AngularFireAuth } from 'angularfire2/auth';
+import { NavController } from 'ionic-angular';
 
 /**
  * Generated class for the NavbarComponent component.
@@ -12,11 +15,15 @@ import { Component } from '@angular/core';
 })
 export class NavbarComponent {
 
-  text: string;
+  @Input()
+  title: string;
 
-  constructor() {
-    console.log('Hello NavbarComponent Component');
-    this.text = 'Hello World';
+  constructor(public afAuth: AngularFireAuth, public navCtrl: NavController) {
   }
+  logOut(){
+    this.navCtrl.setRoot(HomePage)
+    this.afAuth.auth.signOut()
+  }
+
 
 }
