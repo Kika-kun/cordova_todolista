@@ -57,12 +57,18 @@ export class Utils {
         if (u.todolists == null) {
             u.todolists = new Array<Todolist>()
         }
+        // get the highest id
+        let i = -1
+        for (let tt of u.todolists) {
+            i = Math.max(tt.id, i)
+        }
+        t.id = i+1
         u.todolists.push(t);
     }
 
     addTodoFromUser(u: LocalUser, tlId: number, text: string) {
         if (u.todolists != null) {
-            console.log("1")
+            //console.log("1")
             for (let tl of u.todolists) {
                 if (tl.id == tlId) {
                     console.log('2')
