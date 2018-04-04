@@ -1,3 +1,5 @@
+import { SocialTodoPageModule } from './../pages/social-todo/social-todo.module';
+import { SocialPageModule } from './../pages/social/social.module';
 
 import { BrowserModule } from '@angular/platform-browser';
 import { ErrorHandler, NgModule } from '@angular/core';
@@ -22,6 +24,8 @@ import { TodoPageModule } from '../pages/todo/todo.module';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFireDatabaseModule, AngularFireDatabaseProvider } from 'angularfire2/database';
 import { AngularFireAuthModule } from 'angularfire2/auth';
+import { SocialPage } from '../pages/social/social';
+import { SocialTodoPage } from '../pages/social-todo/social-todo';
 
 
  
@@ -49,14 +53,18 @@ export const firebaseConfig = {
     AngularFireDatabaseModule,
     AngularFireAuthModule, 
     TodolistPageModule,
-    TodoPageModule
+    TodoPageModule, 
+    SocialPageModule, 
+    SocialTodoPageModule
   ],
   bootstrap: [IonicApp],
   entryComponents: [
     MyApp,
     HomePage, 
     TodolistPage, 
-    TodoPage
+    TodoPage,
+    SocialPage, 
+    SocialTodoPage
   ],
   providers: [
     StatusBar,

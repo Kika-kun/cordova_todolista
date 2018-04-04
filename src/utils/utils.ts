@@ -1,3 +1,5 @@
+import { TodoPageModule } from './../pages/todo/todo.module';
+import { AngularFireDatabase } from 'angularfire2/database';
 import { LocalUser } from "../model/LocalUser";
 import { Todolist } from "../model/Todolist";
 import { Todo } from "../model/Todo";
@@ -49,6 +51,13 @@ export class Utils {
         i = Math.max(t.id, i);
         }
         u.todolists.push(new Todolist(title, i+1));
+    }
+
+    addTodolistComplete(u: LocalUser, t: Todolist) {
+        if (u.todolists == null) {
+            u.todolists = new Array<Todolist>()
+        }
+        u.todolists.push(t);
     }
 
     addTodoFromUser(u: LocalUser, tlId: number, text: string) {
@@ -130,5 +139,18 @@ export class Utils {
         t.done = state;
     }
 
-    
+
+    addAuthorize(currentUser: LocalUser, email: string) {
+        if (currentUser.authorized == null) {
+            currentUser.authorized = new Array<string>();
+        }
+        currentUser.authorized.push(email)
+    }
+
+    removeAuthorize(currentUser: LocalUser, email: string) {
+        if (currentUser.authorized == null) {
+            return
+        }
+        currentUser.authorized.splice(currentUser.authorized.indexOf(email), 1);
+    }
 }

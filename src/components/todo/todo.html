@@ -1,5 +1,5 @@
 <ion-item-sliding #item>
-    <ion-item (click)="showTodos()">
+    <ion-item>
         <ion-label>{{todo.text}}</ion-label>
         <ion-checkbox [(ngModel)]="todo.done" (ionChange)="updateTodo()"></ion-checkbox>
     </ion-item>

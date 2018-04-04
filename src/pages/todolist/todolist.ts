@@ -7,6 +7,7 @@ import { Todolist } from '../../model/Todolist';
 import { LocalUser } from '../../model/LocalUser';
 import * as firebase from 'firebase/app';
 import { AlertController } from 'ionic-angular';
+import { SocialPage } from '../social/social';
 
 
 /**
@@ -40,7 +41,7 @@ export class TodolistPage {
           this.currentKey = snapshot.key;
         }
       });
-    })    
+    })
   }
 
   ionViewDidLoad() {
@@ -80,6 +81,10 @@ export class TodolistPage {
       ]
     });
     prompt.present();
+  }
+
+  showSocial() {
+    this.navCtrl.push(SocialPage);
   }
 
 
